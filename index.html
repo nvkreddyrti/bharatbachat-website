@@ -1,1 +1,366 @@
-index.html<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>Bharat Bachat</title></head><body><h1>Bharat Bachat Website</h1></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharat Bachat | India's UPI Micro-Savings & GST Savings App</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #003366;
+            --secondary-blue: #0056b3;
+            --accent-green: #28a745;
+            --light-blue: #eef4ff;
+        }
+        .hero-bg {
+            background: linear-gradient(135deg, #001f3f 0%, #003366 100%);
+        }
+        .trust-badge {
+            filter: grayscale(100%) brightness(200%);
+            transition: 0.3s;
+        }
+        .trust-badge:hover {
+            filter: none;
+        }
+        .calculator-card {
+            transition: transform 0.3s;
+        }
+        .calculator-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+
+    <!-- 1. Navigation Bar -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-blue-900 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold">B</span>
+                    </div>
+                    <span class="text-xl font-bold text-blue-900 tracking-tight">Bharat Bachat</span>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-600">
+                    <a href="#how-it-works" class="hover:text-blue-900">How It Works</a>
+                    <a href="#calculators" class="hover:text-blue-900">Calculators</a>
+                    <a href="#features" class="hover:text-blue-900">Features</a>
+                    <a href="#trust" class="hover:text-blue-900">Security</a>
+                </div>
+                <button class="bg-blue-900 text-white px-6 py-2 rounded-full font-semibold hover:bg-blue-800 transition">Get Started</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section -->
+    <section class="hero-bg text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 space-y-6">
+                <div class="inline-block bg-blue-800/50 px-4 py-1 rounded-full text-blue-200 text-sm border border-blue-700">
+                    🇮🇳 Made for the next billion Indians
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+                    Turn Your <span class="text-blue-400">GST Expenses</span> Into Future Wealth.
+                </h1>
+                <p class="text-xl text-blue-100 max-w-lg">
+                    Automatically save every time you spend via UPI. Bharat Bachat rounds up your spare change and optimizes your GST benefits into high-yield investments.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button class="bg-white text-blue-900 px-8 py-4 rounded-xl font-bold text-lg hover:shadow-lg transition">Join the Waitlist</button>
+                    <button class="border border-blue-400 text-blue-100 px-8 py-4 rounded-xl font-bold text-lg hover:bg-blue-800 transition">Explore Savings</button>
+                </div>
+            </div>
+            <div class="md:w-1/2 mt-12 md:mt-0 flex justify-center">
+                <div class="relative w-64 h-[500px] bg-gray-900 rounded-[3rem] border-8 border-gray-800 shadow-2xl overflow-hidden">
+                    <div class="bg-blue-900 p-6 h-full space-y-4">
+                        <div class="text-xs text-blue-300">Total Savings</div>
+                        <div class="text-3xl font-bold">₹12,450.00</div>
+                        <div class="space-y-3">
+                            <div class="bg-blue-800/50 p-3 rounded-lg flex justify-between">
+                                <span class="text-xs text-blue-200">UPI Roundups</span>
+                                <span class="text-xs font-bold text-green-400">+₹450</span>
+                            </div>
+                            <div class="bg-blue-800/50 p-3 rounded-lg flex justify-between">
+                                <span class="text-xs text-blue-200">GST Optimized</span>
+                                <span class="text-xs font-bold text-green-400">+₹1,200</span>
+                            </div>
+                        </div>
+                        <div class="h-32 bg-blue-800/30 rounded-lg flex items-end p-2 gap-1">
+                            <div class="bg-blue-400 w-1/4 h-1/2 rounded-t"></div>
+                            <div class="bg-blue-400 w-1/4 h-3/4 rounded-t"></div>
+                            <div class="bg-blue-400 w-1/4 h-full rounded-t"></div>
+                            <div class="bg-blue-400 w-1/4 h-2/3 rounded-t"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Social Proof Numbers -->
+    <section class="bg-white py-12 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 flex flex-wrap justify-around text-center gap-8">
+            <div>
+                <div class="text-3xl font-bold text-blue-900">₹85.7 Lakh Cr</div>
+                <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">UPI Transaction Value</div>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-blue-900">₹1.72 Lakh Cr</div>
+                <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">GST Collected Monthly</div>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-blue-900">5% - 12%</div>
+                <div class="text-xs text-gray-500 uppercase tracking-widest mt-1">Idle Cash Optimization</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Calculators Hub -->
+    <section id="calculators" class="py-20 bg-light-blue">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">See Your Potential Bachat</h2>
+                <p class="text-gray-600">Calculate how much you could save with our smart algorithms.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm calculator-card border border-gray-100">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-900 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-file-invoice-dollar text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">GST Found Money</h3>
+                    <p class="text-sm text-gray-600 mb-6">Estimate GST savings on your monthly business expenses.</p>
+                    <div class="space-y-4">
+                        <label class="block text-xs font-semibold text-gray-500 uppercase">Monthly Expense (₹)</label>
+                        <input type="number" id="gst-input" value="50000" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none">
+                        <div class="pt-4 border-t border-gray-100">
+                            <div class="text-sm text-gray-500">Annual Savings Potential:</div>
+                            <div class="text-2xl font-bold text-blue-900" id="gst-result">₹1,08,000</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm calculator-card border border-gray-100">
+                    <div class="w-12 h-12 bg-green-100 text-green-700 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-coins text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">UPI Round-Up</h3>
+                    <p class="text-sm text-gray-600 mb-6">Save the "change" from every scan & pay transaction.</p>
+                    <div class="space-y-4">
+                        <label class="block text-xs font-semibold text-gray-500 uppercase">Daily UPI Transactions</label>
+                        <input type="range" id="upi-range" min="1" max="20" value="5" class="w-full">
+                        <div class="text-center font-bold text-blue-900"><span id="upi-count">5</span> per day</div>
+                        <div class="pt-4 border-t border-gray-100">
+                            <div class="text-sm text-gray-500">Monthly Bachat:</div>
+                            <div class="text-2xl font-bold text-green-600" id="upi-result">₹750</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-2xl shadow-sm calculator-card border border-gray-100">
+                    <div class="w-12 h-12 bg-orange-100 text-orange-700 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-chart-line text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Impulse Audit</h3>
+                    <p class="text-sm text-gray-600 mb-6">Audit that impulse buy. See what it's worth in 10 years.</p>
+                    <div class="space-y-4">
+                        <label class="block text-xs font-semibold text-gray-500 uppercase">Impulse Amount (₹)</label>
+                        <input type="number" id="impulse-input" value="1000" class="w-full p-3 bg-gray-50 border border-gray-200 rounded-lg outline-none">
+                        <div class="pt-4 border-t border-gray-100">
+                            <div class="text-sm text-gray-500">Value in 10 Years (12% PA):</div>
+                            <div class="text-2xl font-bold text-blue-900" id="impulse-result">₹3,105</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. How It Works -->
+    <section id="how-it-works" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">How Bharat Bachat Works</h2>
+            </div>
+            <div class="grid md:grid-cols-3 gap-12 text-center">
+                <div class="space-y-4">
+                    <div class="w-16 h-16 bg-blue-900 text-white rounded-full flex items-center justify-center mx-auto text-xl font-bold">1</div>
+                    <h4 class="text-xl font-bold">Link UPI</h4>
+                    <p class="text-gray-600">Connect your existing UPI apps securely via NPCI regulated channels.</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="w-16 h-16 bg-blue-900 text-white rounded-full flex items-center justify-center mx-auto text-xl font-bold">2</div>
+                    <h4 class="text-xl font-bold">Spend & Save</h4>
+                    <p class="text-gray-600">Every transaction rounds up to the nearest ₹10. You don't even feel it.</p>
+                </div>
+                <div class="space-y-4">
+                    <div class="w-16 h-16 bg-blue-900 text-white rounded-full flex items-center justify-center mx-auto text-xl font-bold">3</div>
+                    <h4 class="text-xl font-bold">Earn Rewards</h4>
+                    <p class="text-gray-600">Watch your spare change grow into serious wealth in high-yield assets.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Features -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">Smart Saving for the Smart Indian.</h2>
+                <div class="space-y-6">
+                    <div class="flex gap-4">
+                        <div class="text-blue-900 mt-1"><i class="fas fa-check-circle text-xl"></i></div>
+                        <div>
+                            <h5 class="font-bold">Automated GST Audit</h5>
+                            <p class="text-gray-600 text-sm">Automatically extract GST from your bills and suggest tax-saving investments.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-blue-900 mt-1"><i class="fas fa-check-circle text-xl"></i></div>
+                        <div>
+                            <h5 class="font-bold">Real-time UPI Monitoring</h5>
+                            <p class="text-gray-600 text-sm">Get instant notifications on your savings with every tea or grocery payment.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-blue-900 mt-1"><i class="fas fa-check-circle text-xl"></i></div>
+                        <div>
+                            <h5 class="font-bold">Low Cost Investments</h5>
+                            <p class="text-gray-600 text-sm">Invest as low as ₹1 in digital gold or diversified mutual funds.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-blue-900 rounded-3xl p-8 text-white h-[400px] flex flex-col justify-end">
+                <div class="text-2xl font-bold mb-2">Micro-Savings, Mega Growth.</div>
+                <p class="text-blue-200">Start with ₹10. End with a secure future.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Trust & Compliance -->
+    <section id="trust" class="py-16 bg-white border-t border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-8">Trusted Partners & Security</h3>
+            <div class="flex flex-wrap justify-center items-center gap-12 opacity-50 grayscale hover:grayscale-0 hover:opacity-100 transition-all">
+                <span class="text-2xl font-bold text-gray-900">NPCI</span>
+                <span class="text-2xl font-bold text-gray-900">SEBI Regulated</span>
+                <span class="text-2xl font-bold text-gray-900">256-bit SSL</span>
+                <span class="text-2xl font-bold text-gray-900">UPI 2.0</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Testimonials -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="bg-white p-8 rounded-2xl shadow-sm italic text-gray-600 border border-gray-100">
+                    "Bharat Bachat made me realize I was spending ₹1,500 monthly on tea and snacks. Now those small roundups are going into my daughter's education fund."
+                    <div class="mt-4 font-bold text-gray-900 not-italic">— Rajesh Kumar, Shop Owner</div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-sm italic text-gray-600 border border-gray-100">
+                    "The GST calculator is a lifesaver for my small business. It found ₹20,000 in annual savings I didn't even know I could claim."
+                    <div class="mt-4 font-bold text-gray-900 not-italic">— Priya Sharma, Freelancer</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. FAQ -->
+    <section class="py-20 bg-white">
+        <div class="max-w-3xl mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+            <div class="space-y-6">
+                <div class="border-b border-gray-100 pb-4">
+                    <h5 class="font-bold mb-2">Is it safe?</h5>
+                    <p class="text-gray-600 text-sm">Yes. We use 256-bit encryption and are fully compliant with Indian financial regulations.</p>
+                </div>
+                <div class="border-b border-gray-100 pb-4">
+                    <h5 class="font-bold mb-2">Do I need a new bank account?</h5>
+                    <p class="text-gray-600 text-sm">No. You can link any of your existing UPI-enabled bank accounts directly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Final CTA -->
+    <section class="py-20">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="bg-blue-900 rounded-[2rem] p-12 text-center text-white">
+                <h2 class="text-4xl font-bold mb-6">Ready to start your bachat journey?</h2>
+                <p class="text-blue-200 mb-8 max-w-xl mx-auto text-lg">Join 10,000+ Indians who are building wealth while they spend.</p>
+                <div class="flex justify-center gap-4">
+                    <input type="email" placeholder="Enter mobile number" class="bg-white/10 border border-white/20 px-6 py-4 rounded-xl outline-none focus:bg-white/20 w-64 text-white">
+                    <button class="bg-white text-blue-900 px-8 py-4 rounded-xl font-bold hover:shadow-lg transition">Join Waitlist</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between gap-12 mb-12">
+                <div class="space-y-4 max-w-sm">
+                    <div class="flex items-center gap-2 text-white">
+                        <div class="w-6 h-6 bg-blue-500 rounded flex items-center justify-center text-xs font-bold">B</div>
+                        <span class="text-lg font-bold">Bharat Bachat</span>
+                    </div>
+                    <p class="text-sm">Revolutionizing how India saves, one UPI transaction at a time.</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-8 text-xs">
+                    <div>
+                        <h6 class="text-white font-semibold mb-4">Product</h6>
+                        <a href="#" class="block hover:text-white mb-2">UPI Round-up</a>
+                        <a href="#" class="block hover:text-white">GST Savings</a>
+                    </div>
+                    <div>
+                        <h6 class="text-white font-semibold mb-4">Company</h6>
+                        <a href="#" class="block hover:text-white mb-2">About Us</a>
+                        <a href="#" class="block hover:text-white">Contact</a>
+                    </div>
+                    <div>
+                        <h6 class="text-white font-semibold mb-4">Legal</h6>
+                        <a href="#" class="block hover:text-white mb-2">Privacy Policy</a>
+                        <a href="#" class="block hover:text-white">Terms</a>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 text-center text-[10px]">
+                © 2026 Bharat Bachat. All rights reserved. Registered with DPIIT.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const gstInput = document.getElementById('gst-input');
+        const gstResult = document.getElementById('gst-result');
+        gstInput.addEventListener('input', () => {
+            const val = gstInput.value || 0;
+            const annual = val * 12 * 0.18;
+            gstResult.innerText = '₹' + annual.toLocaleString('en-IN');
+        });
+
+        const upiRange = document.getElementById('upi-range');
+        const upiCount = document.getElementById('upi-count');
+        const upiResult = document.getElementById('upi-result');
+        upiRange.addEventListener('input', () => {
+            const val = upiRange.value;
+            upiCount.innerText = val;
+            const monthly = val * 5 * 30;
+            upiResult.innerText = '₹' + monthly.toLocaleString('en-IN');
+        });
+
+        const impulseInput = document.getElementById('impulse-input');
+        const impulseResult = document.getElementById('impulse-result');
+        impulseInput.addEventListener('input', () => {
+            const val = impulseInput.value || 0;
+            const future = val * Math.pow(1.12, 10);
+            impulseResult.innerText = '₹' + Math.round(future).toLocaleString('en-IN');
+        });
+    </script>
+</body>
+</html>
