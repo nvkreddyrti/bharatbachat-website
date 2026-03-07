@@ -49,14 +49,6 @@
             z-index: -1;
             filter: blur(60px);
         }
-        .floating {
-            animation: floating 3s ease-in-out infinite;
-        }
-        @keyframes floating {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
         .ticker-wrap {
             width: 100%;
             overflow: hidden;
@@ -74,110 +66,231 @@
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
-        .confidence-bar {
-            height: 12px;
-            background: #334155;
-            border-radius: 6px;
-            position: relative;
-            overflow: hidden;
+        /* New Calculator Styles */
+        .calc-container {
+            display: none;
         }
-        .confidence-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #ef4444 0%, #f59e0b 50%, #22c55e 100%);
-            transition: width 1s ease-in-out;
+        .calc-container.active {
+            display: block;
         }
-        input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
-            -webkit-appearance: none; margin: 0;
+        .calc-tab {
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 1px solid var(--glass-border);
+        }
+        .calc-tab.active {
+            background: var(--saffron);
+            color: white;
+            border-color: var(--saffron);
+        }
+        .calc-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+        }
+        input[type=\"range\"] {
+            accent-color: var(--saffron);
+        }
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+        .results-table th, .results-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        .results-table th {
+            color: var(--saffron);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .highlight-row {
+            background: rgba(19, 136, 8, 0.1);
+            color: #4ade80;
+            font-weight: 700;
         }
     </style>
 </head>
-<body class="selection:bg-saffron selection:text-navy">
+<body class=\"selection:bg-saffron selection:text-navy\">
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 border-b border-white/5 bg-slate-950/50 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-gradient-to-br from-saffron to-green rounded-xl flex items-center justify-center font-bold text-white text-xl">BB</div>
-                <span class="text-xl font-bold tracking-tight">Bharat Bachat</span>
+    <nav class=\"fixed top-0 w-full z-50 border-b border-white/5 bg-slate-950/50 backdrop-blur-md\">
+        <div class=\"max-w-7xl mx-auto px-6 h-20 flex items-center justify-between\">
+            <div class=\"flex items-center gap-3\">
+                <div class=\"w-10 h-10 bg-gradient-to-br from-saffron to-green rounded-xl flex items-center justify-center font-bold text-white text-xl\">BB</div>
+                <span class=\"text-xl font-bold tracking-tight\">Bharat Bachat</span>
             </div>
-            <div class="hidden lg:flex items-center gap-10 text-sm font-medium text-slate-400">
-                <a href="#opportunity" class="hover:text-white transition-colors">Opportunity</a>
-                <a href="#how-it-works" class="hover:text-white transition-colors">How it Works</a>
-                <a href="#features" class="hover:text-white transition-colors">Features</a>
-                <a href="#roadmap" class="hover:text-white transition-colors">Roadmap</a>
+            <div class=\"hidden lg:flex items-center gap-10 text-sm font-medium text-slate-400\">
+                <a href=\"#opportunity\" class=\"hover:text-white transition-colors\">Opportunity</a>
+                <a href=\"#calculators\" class=\"hover:text-white transition-colors\">Calculators</a>
+                <a href=\"#features\" class=\"hover:text-white transition-colors\">Features</a>
+                <a href=\"#roadmap\" class=\"hover:text-white transition-colors\">Roadmap</a>
             </div>
-            <button class="bg-white text-slate-950 px-6 py-2.5 rounded-full font-semibold hover:bg-saffron hover:text-white transition-all duration-300">Join Waitlist</button>
+            <button class=\"bg-white text-slate-950 px-6 py-2.5 rounded-full font-semibold hover:bg-saffron hover:text-white transition-all duration-300\">Join Waitlist</button>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-40 pb-20 px-6 overflow-hidden">
-        <div class="hero-glow"></div>
-        <div class="max-w-7xl mx-auto text-center">
-            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-saffron text-xs font-bold uppercase tracking-widest mb-8">
-                <span class="w-2 h-2 rounded-full bg-saffron animate-pulse"></span>
-                The Future of Micro-Savings is Here
+    <section class=\"relative pt-40 pb-20 px-6 overflow-hidden\">
+        <div class=\"hero-glow\"></div>
+        <div class=\"max-w-7xl mx-auto text-center\">
+            <div class=\"inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-saffron text-xs font-bold uppercase tracking-widest mb-8\">
+                <span class=\"w-2 h-2 rounded-full bg-saffron animate-pulse\"></span>
+                India's First UPI Micro-Savings Platform
             </div>
-            <h1 class="text-6xl lg:text-8xl font-bold leading-tight mb-8">
+            <h1 class=\"text-6xl lg:text-8xl font-bold leading-tight mb-8\">
                 Every UPI Payment <br>
-                <span class="gradient-text">Builds Your Wealth</span>
+                <span class=\"gradient-text\">Builds Your Wealth</span>
             </h1>
-            <p class="max-w-2xl mx-auto text-lg text-slate-400 mb-12">
-                India's first Micro-Savings & GST Savings app. Automatically save spare change, optimize GST, and invest in high-yield assets with every transaction.
+            <p class=\"max-w-2xl mx-auto text-lg text-slate-400 mb-12\">
+                Turn your daily expenses into future wealth. Automatically save spare change, optimize GST, and invest in high-yield assets with every scan.
             </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button class="w-full sm:w-auto px-10 py-4 bg-white text-slate-950 rounded-2xl font-bold text-lg hover:bg-saffron hover:text-white transition-all">Start Saving Now</button>
-                <button class="w-full sm:w-auto px-10 py-4 glass border-white/10 text-white rounded-2xl font-bold text-lg hover:bg-white/10 transition-all">Watch Demo</button>
+            <div class=\"flex flex-col sm:flex-row items-center justify-center gap-4\">
+                <button class=\"w-full sm:w-auto px-10 py-4 bg-white text-slate-950 rounded-2xl font-bold text-lg hover:bg-saffron hover:text-white transition-all\">Start Saving Now</button>
+                <a href=\"#calculators\" class=\"w-full sm:w-auto px-10 py-4 glass border-white/10 text-white rounded-2xl font-bold text-lg hover:bg-white/10 transition-all text-center\">Try Calculators</a>
             </div>
         </div>
     </section>
 
     <!-- Trust Ticker -->
-    <div class="ticker-wrap">
-        <div class="ticker">
-            <div class="px-12 flex items-center gap-4 text-slate-500 font-bold grayscale opacity-50"><img src="https://via.placeholder.com/100x40/000000/FFFFFF?text=DPIIT" class="h-8"> DPIIT RECOGNIZED</div>
-            <div class="px-12 flex items-center gap-4 text-slate-500 font-bold grayscale opacity-50"><img src="https://via.placeholder.com/100x40/000000/FFFFFF?text=IIIT-B" class="h-8"> IIIT-B INCUBATED</div>
-            <div class="px-12 flex items-center gap-4 text-slate-500 font-bold grayscale opacity-50"><img src="https://via.placeholder.com/100x40/000000/FFFFFF?text=MeitY" class="h-8"> MeitY TIDE 2.0</div>
-            <div class="px-12 flex items-center gap-4 text-slate-500 font-bold grayscale opacity-50"><img src="https://via.placeholder.com/100x40/000000/FFFFFF?text=NPCI" class="h-8"> NPCI INTEGRATED</div>
-            <div class="px-12 flex items-center gap-4 text-slate-500 font-bold grayscale opacity-50"><img src="https://via.placeholder.com/100x40/000000/FFFFFF?text=SISFS" class="h-8"> SISFS SUPPORTED</div>
-            <div class="px-12 flex items-center gap-4 text-slate-500 font-bold grayscale opacity-50"><img src="https://via.placeholder.com/100x40/000000/FFFFFF?text=RBIH" class="h-8"> RBIH BOOTCAMP</div>
-            <!-- Duplicate for infinite effect -->
-            <div class="px-12 flex items-center gap-4 text-slate-500 font-bold grayscale opacity-50"><img src="https://via.placeholder.com/100x40/000000/FFFFFF?text=DPIIT" class="h-8"> DPIIT RECOGNIZED</div>
-            <div class="px-12 flex items-center gap-4 text-slate-500 font-bold grayscale opacity-50"><img src="https://via.placeholder.com/100x40/000000/FFFFFF?text=IIIT-B" class="h-8"> IIIT-B INCUBATED</div>
+    <div class=\"ticker-wrap\">
+        <div class=\"ticker\">
+            <div class=\"px-12 flex items-center gap-4 text-slate-500 font-bold grayscale opacity-50\"><img src=\"https://via.placeholder.com/100x40/000000/FFFFFF?text=DPIIT\" class=\"h-8\"> DPIIT RECOGNIZED</div>
+            <div class=\"px-12 flex items-center gap-4 text-slate-500 font-bold grayscale opacity-50\"><img src=\"https://via.placeholder.com/100x40/000000/FFFFFF?text=IIIT-B\" class=\"h-8\"> IIIT-B INCUBATED</div>
+            <div class=\"px-12 flex items-center gap-4 text-slate-500 font-bold grayscale opacity-50\"><img src=\"https://via.placeholder.com/100x40/000000/FFFFFF?text=MeitY\" class=\"h-8\"> MeitY TIDE 2.0</div>
+            <div class=\"px-12 flex items-center gap-4 text-slate-500 font-bold grayscale opacity-50\"><img src=\"https://via.placeholder.com/100x40/000000/FFFFFF?text=NPCI\" class=\"h-8\"> NPCI INTEGRATED</div>
+            <div class=\"px-12 flex items-center gap-4 text-slate-500 font-bold grayscale opacity-50\"><img src=\"https://via.placeholder.com/100x40/000000/FFFFFF?text=SISFS\" class=\"h-8\"> SISFS SUPPORTED</div>
+            <div class=\"px-12 flex items-center gap-4 text-slate-500 font-bold grayscale opacity-50\"><img src=\"https://via.placeholder.com/100x40/000000/FFFFFF?text=RBIH\" class=\"h-8\"> RBIH BOOTCAMP</div>
+            <div class=\"px-12 flex items-center gap-4 text-slate-500 font-bold grayscale opacity-50\"><img src=\"https://via.placeholder.com/100x40/000000/FFFFFF?text=DPIIT\" class=\"h-8\"> DPIIT RECOGNIZED</div>
+            <div class=\"px-12 flex items-center gap-4 text-slate-500 font-bold grayscale opacity-50\"><img src=\"https://via.placeholder.com/100x40/000000/FFFFFF?text=IIIT-B\" class=\"h-8\"> IIIT-B INCUBATED</div>
         </div>
     </div>
 
-    <!-- Opportunity Stats -->
-    <section id="opportunity" class="py-24 px-6">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
-            <div>
-                <h2 class="text-4xl lg:text-5xl font-bold mb-8">The ₹1.72 Lakh Crore <br><span class="text-saffron">GST Opportunity.</span></h2>
-                <p class="text-slate-400 text-lg mb-10">Indians spend trillions via UPI every month, yet millions lose out on GST benefits and micro-savings opportunities. We bridges that gap.</p>
-                <div class="grid grid-cols-2 gap-6">
-                    <div class="glass p-8 border-saffron/20">
-                        <div class="text-3xl font-bold text-saffron mb-2">₹85.7T+</div>
-                        <div class="text-sm text-slate-500 uppercase tracking-widest">Monthly UPI Value</div>
+    <!-- Savings Calculators Section -->
+    <section id=\"calculators\" class=\"py-24 px-6 bg-slate-900/20\">
+        <div class=\"max-w-7xl mx-auto\">
+            <div class=\"text-center mb-16\">
+                <h2 class=\"text-4xl lg:text-5xl font-bold mb-6\">Smart <span class=\"text-saffron\">Savings Calculators.</span></h2>
+                <p class=\"text-slate-400 max-w-2xl mx-auto\">Calculate your potential wealth building across three core bachat pillars.</p>
+            </div>
+
+            <div class=\"flex flex-wrap justify-center gap-4 mb-12\">
+                <div class=\"calc-tab active\" data-target=\"upi-calc\">UPI Round-Up</div>
+                <div class=\"calc-tab\" data-target=\"gst-calc\">GST Found Money</div>
+                <div class=\"calc-tab\" data-target=\"impulse-calc\">Impulse Spending</div>
+            </div>
+
+            <!-- UPI Round-Up Calculator -->
+            <div id=\"upi-calc\" class=\"calc-container active\">
+                <div class=\"grid lg:grid-cols-2 gap-12\">
+                    <div class=\"calc-card\">
+                        <h3 class=\"text-2xl font-bold mb-8 text-saffron\">UPI Daily Habits</h3>
+                        <div class=\"space-y-10\">
+                            <div>
+                                <label class=\"block text-slate-400 mb-4\">UPI Transactions Per Day</label>
+                                <div class=\"flex justify-between items-center mb-2\">
+                                    <span class=\"text-xs text-slate-500\">Minimal</span>
+                                    <span class=\"text-xl font-bold text-white\" id=\"upi-freq-val\">8</span>
+                                    <span class=\"text-xs text-slate-500\">Power User</span>
+                                </div>
+                                <input type=\"range\" id=\"upi-freq-range\" min=\"2\" max=\"20\" step=\"1\" value=\"8\" class=\"w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer\">
+                            </div>
+                            <div>
+                                <label class=\"block text-slate-400 mb-4\">Round-Up Amount per Scan</label>
+                                <div class=\"flex gap-4\">
+                                    <button class=\"upi-save-btn flex-1 py-3 rounded-xl border border-white/10 bg-white/5 active\" data-val=\"10\">₹10</button>
+                                    <button class=\"upi-save-btn flex-1 py-3 rounded-xl border border-white/10 bg-white/5\" data-val=\"20\">₹20</button>
+                                    <button class=\"upi-save-btn flex-1 py-3 rounded-xl border border-white/10 bg-white/5\" data-val=\"50\">₹50</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="glass p-8 border-green/20">
-                        <div class="text-3xl font-bold text-green mb-2">₹1.72T+</div>
-                        <div class="text-sm text-slate-500 uppercase tracking-widest">GST Collected Monthly</div>
+                    <div class=\"calc-card border-green/20 bg-green-950/5\">
+                        <h3 class=\"text-xl font-bold mb-6\">10 Year Wealth Building</h3>
+                        <div class=\"text-4xl font-bold text-green mb-2\">₹<span id=\"upi-10yr-total\">4,30,000</span></div>
+                        <p class=\"text-slate-500 text-sm mb-8\">Silently built from ₹2,080/month micro-savings.</p>
+                        <table class=\"results-table\">
+                            <thead>
+                                <tr><th>Duration</th><th>FD (7.5%)</th><th>Bharat Bachat (10%)</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>3 Years</td><td id=\"upi-fd-3\">₹82K</td><td id=\"upi-bb-3\">₹87K</td></tr>
+                                <tr><td>5 Years</td><td id=\"upi-fd-5\">₹1.5L</td><td id=\"upi-bb-5\">₹1.6L</td></tr>
+                                <tr class=\"highlight-row\"><td>10 Years</td><td id=\"upi-fd-10\">₹3.7L</td><td id=\"upi-bb-10\">₹4.3L</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="glass p-12 relative overflow-hidden">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-saffron/10 rounded-full blur-3xl"></div>
-                <h3 class="text-2xl font-bold mb-8">How much can you save?</h3>
-                <div class="space-y-8">
-                    <div>
-                        <div class="flex justify-between mb-4">
-                            <span class="text-slate-400">Monthly UPI Spending</span>
-                            <span class="text-white font-bold">₹<span id="spend-val">50,000</span></span>
+
+            <!-- GST Found Money Calculator -->
+            <div id=\"gst-calc\" class=\"calc-container\">
+                <div class=\"grid lg:grid-cols-2 gap-12\">
+                    <div class=\"calc-card\">
+                        <h3 class=\"text-2xl font-bold mb-8 text-saffron\">Monthly Spending Categories</h3>
+                        <div class=\"space-y-6\">
+                            <div>
+                                <label class=\"flex justify-between text-sm text-slate-400 mb-2\">Footwear & Clothing <span>₹<span id=\"gst-cat1-val\">2000</span></span></label>
+                                <input type=\"range\" id=\"gst-cat1\" min=\"0\" max=\"10000\" step=\"500\" value=\"2000\" class=\"w-full h-1.5 bg-slate-800\">
+                            </div>
+                            <div>
+                                <label class=\"flex justify-between text-sm text-slate-400 mb-2\">Personal Care & Cosmetics <span>₹<span id=\"gst-cat2-val\">1500</span></span></label>
+                                <input type=\"range\" id=\"gst-cat2\" min=\"0\" max=\"5000\" step=\"100\" value=\"1500\" class=\"w-full h-1.5 bg-slate-800\">
+                            </div>
+                            <div>
+                                <label class=\"flex justify-between text-sm text-slate-400 mb-2\">Food & Dairy <span>₹<span id=\"gst-cat3-val\">3000</span></span></label>
+                                <input type=\"range\" id=\"gst-cat3\" min=\"0\" max=\"10000\" step=\"500\" value=\"3000\" class=\"w-full h-1.5 bg-slate-800\">
+                            </div>
                         </div>
-                        <input type="range" id="spend-range" min="5000" max="200000" step="5000" value="50000" class="w-full h-2 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-saffron">
                     </div>
-                    <div class="p-8 bg-white/5 rounded-3xl border border-white/10">
-                        <div class="text-sm text-slate-400 mb-2">Estimated Yearly Bachat</div>
-                        <div class="text-5xl font-bold text-green">₹<span id="save-res">1,08,000</span></div>
+                    <div class=\"calc-card border-green/20 bg-green-950/5\">
+                        <h3 class=\"text-xl font-bold mb-4\">Your Found Money</h3>
+                        <div class=\"text-4xl font-bold text-green mb-2\">₹<span id=\"gst-monthly\">486</span>/mo</div>
+                        <p class=\"text-slate-500 text-sm mb-8\">Money the Government already saved for you via rate cuts. Let's build wealth with it.</p>
+                        <div class=\"p-6 rounded-2xl bg-white/5 border border-white/10\">
+                            <div class=\"text-sm text-slate-400 mb-1\">Wealth in 10 Years</div>
+                            <div class=\"text-3xl font-bold text-white\">₹<span id=\"gst-10yr\">1,00,000</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Impulse Spending Calculator -->
+            <div id=\"impulse-calc\" class=\"calc-container\">
+                <div class=\"grid lg:grid-cols-2 gap-12\">
+                    <div class=\"calc-card\">
+                        <h3 class=\"text-2xl font-bold mb-8 text-saffron\">Identify Impulse Spends</h3>
+                        <div class=\"space-y-6\">
+                            <div class=\"flex items-center gap-4\">
+                                <input type=\"number\" id=\"imp-food\" value=\"3000\" class=\"w-24 p-3 rounded-lg bg-white/5 border border-white/10 outline-none\">
+                                <label class=\"text-slate-400\">Food Delivery (Swiggy/Zomato)</label>
+                            </div>
+                            <div class=\"flex items-center gap-4\">
+                                <input type=\"number\" id=\"imp-fashion\" value=\"1500\" class=\"w-24 p-3 rounded-lg bg-white/5 border border-white/10 outline-none\">
+                                <label class=\"text-slate-400\">Impulse Fashion (Sale Buys)</label>
+                            </div>
+                            <div class=\"flex items-center gap-4\">
+                                <input type=\"number\" id=\"imp-gaming\" value=\"500\" class=\"w-24 p-3 rounded-lg bg-white/5 border border-white/10 outline-none\">
+                                <label class=\"text-slate-400\">Gaming/App Purchases</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class=\"calc-card border-saffron/20 bg-orange-950/5\">
+                        <h3 class=\"text-xl font-bold mb-6\">The \"Painless\" Redirect</h3>
+                        <div class=\"flex items-center justify-between mb-8\">
+                            <span class=\"text-slate-400\">Redirect <span class=\"text-white font-bold\">10%</span></span>
+                            <div class=\"text-2xl font-bold text-saffron\">₹<span id=\"imp-redirect\">500</span>/mo</div>
+                        </div>
+                        <div class=\"p-8 rounded-3xl bg-saffron text-navy text-center\">
+                            <div class=\"text-xs uppercase font-black tracking-widest opacity-60 mb-1\">Impulse Score</div>
+                            <div class=\"text-5xl font-black mb-2\">6.4<span class=\"text-xl\">/10</span></div>
+                            <div class=\"font-bold\">Moderate Impulse</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -185,84 +298,162 @@
     </section>
 
     <!-- The Nudge Engine -->
-    <section id="features" class="py-24 px-6 bg-slate-900/30">
-        <div class="max-w-7xl mx-auto text-center mb-20">
-            <h2 class="text-4xl lg:text-5xl font-bold mb-6">Our Proprietary <span class="text-green">Nudge Engine.</span></h2>
-            <p class="text-slate-400">Advanced behavioral science meets fintech to make saving effortless.</p>
+    <section id=\"features\" class=\"py-24 px-6 bg-slate-900/30\">
+        <div class=\"max-w-7xl mx-auto text-center mb-20\">
+            <h2 class=\"text-4xl lg:text-5xl font-bold mb-6\">Our Proprietary <span class=\"text-green\">Nudge Engine.</span></h2>
+            <p class=\"text-slate-400\">Advanced behavioral science meets fintech to make saving effortless.</p>
         </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="glass p-8 hover:bg-white/5 transition-all group">
-                <div class="w-12 h-12 rounded-2xl bg-saffron/20 flex items-center justify-center text-saffron text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fas fa-receipt"></i>
+        <div class=\"grid md:grid-cols-2 lg:grid-cols-4 gap-6\">
+            <div class=\"glass p-8 hover:bg-white/5 transition-all group\">
+                <div class=\"w-12 h-12 rounded-2xl bg-saffron/20 flex items-center justify-center text-saffron text-2xl mb-6 group-hover:scale-110 transition-transform\">
+                    <i class=\"fas fa-receipt\"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-4">GST Nudge</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">Extracts GST details from merchant IDs and prompts you to reinvest tax benefits into your future.</p>
+                <h3 class=\"text-xl font-bold mb-4\">GST Nudge</h3>
+                <p class=\"text-slate-400 text-sm leading-relaxed\">Extracts GST details from merchant IDs and prompts you to reinvest tax benefits into your future.</p>
             </div>
-            <div class="glass p-8 hover:bg-white/5 transition-all group">
-                <div class="w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-500 text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fas fa-mirror"></i>
+            <div class=\"glass p-8 hover:bg-white/5 transition-all group\">
+                <div class=\"w-12 h-12 rounded-2xl bg-blue-500/20 flex items-center justify-center text-blue-500 text-2xl mb-6 group-hover:scale-110 transition-transform\">
+                    <i class=\"fas fa-mirror\"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-4">Experience Mirror</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">Spent ₹2,000 on a dinner? We nudge you to match it with a ₹200 investment for your future self.</p>
+                <h3 class=\"text-xl font-bold mb-4\">Experience Mirror</h3>
+                <p class=\"text-slate-400 text-sm leading-relaxed\">Spent ₹2,000 on a dinner? We nudge you to match it with a ₹200 investment for your future self.</p>
             </div>
-            <div class="glass p-8 hover:bg-white/5 transition-all group">
-                <div class="w-12 h-12 rounded-2xl bg-green-500/20 flex items-center justify-center text-green-500 text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fas fa-repeat"></i>
+            <div class=\"glass p-8 hover:bg-white/5 transition-all group\">
+                <div class=\"w-12 h-12 rounded-2xl bg-green-500/20 flex items-center justify-center text-green-500 text-2xl mb-6 group-hover:scale-110 transition-transform\">
+                    <i class=\"fas fa-repeat\"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-4">Habit Nudge</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">Identifies recurring patterns like daily tea/coffee and automates micro-savings for every cup.</p>
+                <h3 class=\"text-xl font-bold mb-4\">Habit Nudge</h3>
+                <p class=\"text-slate-400 text-sm leading-relaxed\">Identifies recurring patterns like daily tea/coffee and automates micro-savings for every cup.</p>
             </div>
-            <div class="glass p-8 hover:bg-white/5 transition-all group">
-                <div class="w-12 h-12 rounded-2xl bg-red-500/20 flex items-center justify-center text-red-500 text-2xl mb-6 group-hover:scale-110 transition-transform">
-                    <i class="fas fa-ban"></i>
+            <div class=\"glass p-8 hover:bg-white/5 transition-all group\">
+                <div class=\"w-12 h-12 rounded-2xl bg-red-500/20 flex items-center justify-center text-red-500 text-2xl mb-6 group-hover:scale-110 transition-transform\">
+                    <i class=\"fas fa-ban\"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-4">Sin Redirect</h3>
-                <p class="text-slate-400 text-sm leading-relaxed">Spending on non-essential items? Redirect a "penalty" percentage into high-yield savings.</p>
+                <h3 class=\"text-xl font-bold mb-4\">Sin Redirect</h3>
+                <p class=\"text-slate-400 text-sm leading-relaxed\">Spending on non-essential items? Redirect a \"penalty\" percentage into high-yield savings.</p>
             </div>
         </div>
     </section>
 
     <!-- Footer / Waitlist -->
-    <footer class="py-20 px-6 border-t border-white/5">
-        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+    <footer class=\"py-20 px-6 border-t border-white/5\">
+        <div class=\"max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center\">
             <div>
-                <div class="flex items-center gap-3 mb-8">
-                    <div class="w-10 h-10 bg-gradient-to-br from-saffron to-green rounded-xl flex items-center justify-center font-bold text-white text-xl">BB</div>
-                    <span class="text-xl font-bold tracking-tight">Bharat Bachat</span>
+                <div class=\"flex items-center gap-3 mb-8\">
+                    <div class=\"w-10 h-10 bg-gradient-to-br from-saffron to-green rounded-xl flex items-center justify-center font-bold text-white text-xl\">BB</div>
+                    <span class=\"text-xl font-bold tracking-tight\">Bharat Bachat</span>
                 </div>
-                <p class="text-slate-500 max-w-sm mb-8 italic">"Pharmacy is my background, but Fintech is my passion. Building for the next billion savers of India."</p>
-                <div class="flex gap-4">
-                    <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-saffron transition-colors"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-saffron transition-colors"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-saffron transition-colors"><i class="fab fa-instagram"></i></a>
+                <p class=\"text-slate-500 max-w-sm mb-8 italic\">\"Pharmacy is my background, but Fintech is my passion. Building for the next billion savers of India.\"</p>
+                <div class=\"flex gap-4\">
+                    <a href=\"#\" class=\"w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-saffron transition-colors\"><i class=\"fab fa-twitter\"></i></a>
+                    <a href=\"#\" class=\"w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-saffron transition-colors\"><i class=\"fab fa-linkedin\"></i></a>
+                    <a href=\"#\" class=\"w-10 h-10 rounded-full glass flex items-center justify-center hover:bg-saffron transition-colors\"><i class=\"fab fa-instagram\"></i></a>
                 </div>
             </div>
-            <div class="glass p-12">
-                <h3 class="text-2xl font-bold mb-4">Join the Bharat Bachat movement.</h3>
-                <p class="text-slate-400 mb-8">Get early access and a ₹500 welcome bachat bonus.</p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <input type="email" placeholder="Email Address" class="flex-1 px-6 py-4 rounded-2xl glass border-white/10 outline-none focus:border-saffron transition-all">
-                    <button class="px-10 py-4 bg-saffron text-white rounded-2xl font-bold hover:scale-105 transition-all shadow-lg shadow-saffron/20">Join Now</button>
+            <div class=\"glass p-12\">
+                <h3 class=\"text-2xl font-bold mb-4\">Join the Bharat Bachat movement.</h3>
+                <p class=\"text-slate-400 mb-8\">Get early access and a ₹500 welcome bachat bonus.</p>
+                <div class=\"flex flex-col sm:flex-row gap-4\">
+                    <input type=\"email\" placeholder=\"Email Address\" class=\"flex-1 px-6 py-4 rounded-2xl glass border-white/10 outline-none focus:border-saffron transition-all\">
+                    <button class=\"px-10 py-4 bg-saffron text-white rounded-2xl font-bold hover:scale-105 transition-all shadow-lg shadow-saffron/20\">Join Now</button>
                 </div>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto mt-20 pt-10 border-t border-white/5 text-center text-slate-500 text-sm">
+        <div class=\"max-w-7xl mx-auto mt-20 pt-10 border-t border-white/5 text-center text-slate-500 text-sm\">
             &copy; 2026 Bharat Bachat (Desi Pe Finance Private Limited). Registered with DPIIT, incubated at IIITB.
         </div>
     </footer>
 
     <script>
-        const range = document.getElementById('spend-range');
-        const valDisp = document.getElementById('spend-val');
-        const resDisp = document.getElementById('save-res');
-
-        range.addEventListener('input', (e) => {
-            const val = parseInt(e.target.value);
-            valDisp.textContent = val.toLocaleString('en-IN');
-            // Mock formula: 18% GST bachat + 5% roundups approx
-            const annual = Math.round(val * 12 * 0.18);
-            resDisp.textContent = annual.toLocaleString('en-IN');
+        // Tab Management
+        document.querySelectorAll('.calc-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.calc-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.calc-container').forEach(c => c.classList.remove('active'));
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.target).classList.add('active');
+            });
         });
+
+        // Common Utils
+        function sipFV(monthly, rate, years) {
+            const r = rate / 12;
+            const n = years * 12;
+            return Math.round(monthly * (Math.pow(1 + r, n) - 1) / r * (1 + r));
+        }
+        function fmt(val) {
+            if (val >= 100000) return (val/100000).toFixed(1) + 'L';
+            if (val >= 1000) return (val/1000).toFixed(0) + 'K';
+            return val;
+        }
+
+        // UPI Calc Logic
+        let upiSaveAmount = 10;
+        const upiFreqRange = document.getElementById('upi-freq-range');
+        const upiFreqVal = document.getElementById('upi-freq-val');
+
+        document.querySelectorAll('.upi-save-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.upi-save-btn').forEach(b => b.classList.remove('active', 'bg-saffron', 'text-navy'));
+                btn.classList.add('active', 'bg-saffron', 'text-navy');
+                upiSaveAmount = parseInt(btn.dataset.val);
+                updateUPICalc();
+            });
+        });
+
+        upiFreqRange.addEventListener('input', () => {
+            upiFreqVal.textContent = upiFreqRange.value;
+            updateUPICalc();
+        });
+
+        function updateUPICalc() {
+            const freq = parseInt(upiFreqRange.value);
+            const monthly = freq * upiSaveAmount * 26; // 26 active days
+            document.getElementById('upi-10yr-total').textContent = (sipFV(monthly, 0.10, 10)).toLocaleString('en-IN');
+            document.getElementById('upi-fd-3').textContent = '₹' + fmt(sipFV(monthly, 0.075, 3));
+            document.getElementById('upi-bb-3').textContent = '₹' + fmt(sipFV(monthly, 0.10, 3));
+            document.getElementById('upi-fd-5').textContent = '₹' + fmt(sipFV(monthly, 0.075, 5));
+            document.getElementById('upi-bb-5').textContent = '₹' + fmt(sipFV(monthly, 0.10, 5));
+            document.getElementById('upi-fd-10').textContent = '₹' + fmt(sipFV(monthly, 0.075, 10));
+            document.getElementById('upi-bb-10').textContent = '₹' + fmt(sipFV(monthly, 0.10, 10));
+        }
+
+        // GST Calc Logic
+        const gstSliders = ['gst-cat1', 'gst-cat2', 'gst-cat3'];
+        gstSliders.forEach(id => {
+            document.getElementById(id).addEventListener('input', () => {
+                document.getElementById(id + '-val').textContent = document.getElementById(id).value;
+                updateGSTCalc();
+            });
+        });
+
+        function updateGSTCalc() {
+            const s1 = parseInt(document.getElementById('gst-cat1').value);
+            const s2 = parseInt(document.getElementById('gst-cat2').value);
+            const s3 = parseInt(document.getElementById('gst-cat3').value);
+            // Avg GST saved: 11.2% (from 18% to 5%)
+            const saved = Math.round((s1 + s2 + s3) * (0.13 / 1.18)); // Rough embedded GST cut formula
+            document.getElementById('gst-monthly').textContent = saved;
+            document.getElementById('gst-10yr').textContent = sipFV(saved, 0.10, 10).toLocaleString('en-IN');
+        }
+
+        // Impulse Calc Logic
+        ['imp-food', 'imp-fashion', 'imp-gaming'].forEach(id => {
+            document.getElementById(id).addEventListener('input', updateImpCalc);
+        });
+
+        function updateImpCalc() {
+            const total = parseInt(document.getElementById('imp-food').value || 0) + 
+                          parseInt(document.getElementById('imp-fashion').value || 0) + 
+                          parseInt(document.getElementById('imp-gaming').value || 0);
+            const redirect = Math.round(total * 0.10);
+            document.getElementById('imp-redirect').textContent = redirect;
+        }
+
+        // Initialize all
+        updateUPICalc();
+        updateGSTCalc();
+        updateImpCalc();
     </script>
 </body>
 </html>
