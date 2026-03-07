@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impulse Spending Audit - Bharat Bachat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FF9933 0%, #1e3a8a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .calculator-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #1e3a8a;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            color: #1e3a8a;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #FF9933;
+            box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.1);
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .category-item {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .category-item:hover {
+            background: rgba(255, 153, 51, 0.1);
+            border-color: #FF9933;
+        }
+
+        .category-item.active {
+            background: #FF9933;
+            border-color: #FF9933;
+            color: white;
+        }
+
+        .category-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .category-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #FF9933 0%, #e68a00 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 153, 51, 0.3);
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 153, 51, 0.4);
+        }
+
+        .results {
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 153, 51, 0.1) 0%, rgba(30, 58, 138, 0.1) 100%);
+            border-radius: 16px;
+            display: none;
+        }
+
+        .results.show {
+            display: block;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+
+        .result-value {
+            color: #FF9933;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .recommendation {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            border-left: 4px solid #FF9933;
+        }
+
+        .recommendation h3 {
+            color: #1e3a8a;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .recommendation p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #1e3a8a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #2d4a9f;
+            transform: translateX(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .calculator-container {
+                padding: 24px;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="header">
+            <h1>💸 Impulse Spending Audit</h1>
+            <p>Track your impulse purchases and discover your savings potential</p>
+        </div>
+
+        <div class="input-group">
+            <label for="monthlySpending">Monthly Impulse Spending (₹)</label>
+            <input type="number" id="monthlySpending" placeholder="Enter amount..." min="0">
+        </div>
+
+        <div class="input-group">
+            <label>Select Your Main Categories</label>
+            <div class="category-grid">
+                <div class="category-item" data-category="food">
+                    <div class="category-icon">🍕</div>
+                    <div class="category-name">Food Delivery</div>
+                </div>
+                <div class="category-item" data-category="shopping">
+                    <div class="category-icon">🛍️</div>
+                    <div class="category-name">Online Shopping</div>
+                </div>
+                <div class="category-item" data-category="entertainment">
+                    <div class="category-icon">🎮</div>
+                    <div class="category-name">Entertainment</div>
+                </div>
+                <div class="category-item" data-category="subscriptions">
+                    <div class="category-icon">📱</div>
+                    <div class="category-name">Subscriptions</div>
+                </div>
+            </div>
+        </div>
+
+        <button class="calculate-btn" onclick="calculateImpulse()">Calculate My Savings Potential</button>
+
+        <div class="results" id="results">
+            <div class="result-item">
+                <span class="result-label">Annual Impulse Spending</span>
+                <span class="result-value" id="annualSpending">₹0</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Potential Savings (50% Reduction)</span>
+                <span class="result-value" id="potentialSavings">₹0</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Invested Growth (10% p.a. for 5 years)</span>
+                <span class="result-value" id="investedGrowth">₹0</span>
+            </div>
+
+            <div class="recommendation">
+                <h3>💡 Your Personalized Recommendation</h3>
+                <p id="recommendation">Start by tracking every impulse purchase. Use Bharat Bachat's auto-save feature to redirect 50% of your impulse spending into wealth-building investments. Small changes today = big results tomorrow!</p>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-btn">← Back to Home</a>
+    </div>
+
+    <script>
+        // Category selection
+        const categoryItems = document.querySelectorAll('.category-item');
+        let selectedCategories = [];
+
+        categoryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const category = item.dataset.category;
+                
+                if (item.classList.contains('active')) {
+                    item.classList.remove('active');
+                    selectedCategories = selectedCategories.filter(c => c !== category);
+                } else {
+                    item.classList.add('active');
+                    selectedCategories.push(category);
+                }
+            });
+        });
+
+        function calculateImpulse() {
+            const monthlySpending = parseFloat(document.getElementById('monthlySpending').value) || 0;
+            
+            if (monthlySpending === 0 || selectedCategories.length === 0) {
+                alert('Please enter your monthly impulse spending and select at least one category!');
+                return;
+            }
+
+            // Calculations
+            const annualSpending = monthlySpending * 12;
+            const potentialSavings = annualSpending * 0.5; // 50% reduction
+            const monthlySavings = potentialSavings / 12;
+            
+            // Future value calculation: FV = PMT * [((1 + r)^n - 1) / r]
+            const monthlyRate = 0.10 / 12; // 10% annual = 0.833% monthly
+            const months = 5 * 12; // 5 years
+            const investedGrowth = monthlySavings * (((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate));
+
+            // Display results
+            document.getElementById('annualSpending').textContent = `₹${annualSpending.toLocaleString('en-IN')}`;
+            document.getElementById('potentialSavings').textContent = `₹${potentialSavings.toLocaleString('en-IN')}`;
+            document.getElementById('investedGrowth').textContent = `₹${Math.round(investedGrowth).toLocaleString('en-IN')}`;
+
+            // Personalized recommendation based on categories
+            let recommendation = getRecommendation(selectedCategories, monthlySpending);
+            document.getElementById('recommendation').textContent = recommendation;
+
+            // Show results
+            document.getElementById('results').classList.add('show');
+        }
+
+        function getRecommendation(categories, spending) {
+            if (spending > 10000) {
+                return `Your ${spending.toLocaleString('en-IN')} monthly impulse spending is significant! Focus on ${categories[0]} first - set a weekly budget and use Bharat Bachat to auto-save the difference. Small mindful choices compound into life-changing wealth.`;
+            } else if (spending > 5000) {
+                return `Great awareness! Your ₹${spending.toLocaleString('en-IN')}/month impulse spending can become ₹${Math.round((spending * 0.5 * 12 * 6.1)).toLocaleString('en-IN')} in 5 years. Enable Bharat Bachat's category-wise savings to redirect ${categories.length} impulse categories into your future.`;
+            } else {
+                return `You're already mindful! With ₹${spending.toLocaleString('en-IN')}/month impulse spending, redirecting just 50% into micro-investments through Bharat Bachat can build a meaningful emergency fund. Start today!`;
+            }
+        }
+    </script>
+</body>
+</html>
