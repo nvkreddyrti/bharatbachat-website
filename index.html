@@ -1,341 +1,351 @@
 <!DOCTYPE html>
-<html lang=\"en\">
+<html lang="en">
 <head>
-    <meta charset=\"UTF-8\">
-    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bharat Bachat | India's UPI Micro-Savings & GST Savings App</title>
-    <!-- Use direct link for Tailwind to ensure it loads in browser -->
-    <link href=\"https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css\" rel=\"stylesheet\">
-    <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css\">
-    <link href=\"https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap\" rel=\"stylesheet\">
+    <!-- Tailwind CSS 3 Play CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#003366',
+                        saffron: '#FF9933',
+                        green: '#138808',
+                        navy: '#000080',
+                        accent: '#FFD700',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
     <style>
         :root {
-            --primary: #003366;
-            --saffron: #FF9933;
-            --white: #FFFFFF;
-            --green: #138808;
-            --navy: #000080;
-            --glass: rgba(255, 255, 255, 0.05);
+            --glass: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.1);
         }
+        
         body {
-            font-family: 'Inter', sans-serif;
             background-color: #020617;
             color: #f8fafc;
             overflow-x: hidden;
-            margin: 0;
-            padding: 0;
         }
-        h1, h2, h3, .font-heading {
-            font-family: 'Space Grotesk', sans-serif;
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 1.5rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .glass {
+
+        .glass-card:hover {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
         }
+
         .gradient-text {
             background: linear-gradient(135deg, #FF9933 0%, #FFFFFF 50%, #138808 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
         .hero-glow {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
+            width: 40vw;
+            height: 40vw;
             background: radial-gradient(circle, rgba(0, 51, 102, 0.3) 0%, transparent 70%);
             z-index: -1;
-            filter: blur(60px);
+            filter: blur(50px);
         }
-        .ticker-wrap {
-            width: 100%;
-            overflow: hidden;
-            background: rgba(15, 23, 42, 0.5);
-            padding: 20px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .ticker {
-            display: flex;
-            width: fit-content;
-            animation: ticker 30s linear infinite;
-        }
-        @keyframes ticker {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .calc-container { display: none; }
-        .calc-container.active { display: block; }
-        .calc-tab {
-            padding: 12px 24px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background: rgba(255,255,255,0.02);
-        }
-        .calc-tab.active {
+
+        .calculator-tab.active {
             background: #FF9933;
-            color: #020617;
-            border-color: #FF9933;
-            font-weight: 700;
+            color: #000;
         }
-        .calc-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 32px;
+
+        input[type="range"] {
+            accent-color: #FF9933;
         }
-        .results-table { width: 100%; border-collapse: collapse; }
-        .results-table th, .results-table td {
-            padding: 16px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        
+        .nav-link {
+            position: relative;
         }
-        .results-table th { color: #FF9933; font-size: 0.75rem; text-transform: uppercase; }
-        .highlight-row { background: rgba(34, 197, 94, 0.1); color: #4ade80; font-weight: 700; }
-        .nav-link { transition: color 0.3s; color: #94a3b8; }
-        .nav-link:hover { color: white; }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: #FF9933;
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
     </style>
 </head>
-<body class=\"bg-slate-950 text-slate-50\">
-
-    <!-- Navigation -->
-    <nav class=\"fixed top-0 w-full z-50 border-b border-white/5 bg-slate-950/80 backdrop-blur-xl\" style=\"height: 80px;\">
-        <div class=\"max-w-7xl mx-auto px-6 h-full flex items-center justify-between\">
-            <div class=\"flex items-center gap-3\">
-                <div class=\"w-10 h-10 bg-gradient-to-br from-saffron to-green rounded-xl flex items-center justify-center font-bold text-white text-xl shadow-lg shadow-saffron/20\">BB</div>
-                <span class=\"text-xl font-bold tracking-tight text-white\">Bharat Bachat</span>
+<body class="font-sans antialiased">
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full z-50 px-6 py-4 glass-card rounded-none border-t-0 border-x-0">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-gradient-to-br from-saffron via-white to-green rounded-xl flex items-center justify-center font-bold text-navy shadow-lg">BB</div>
+                <span class="text-xl font-bold font-heading tracking-tight">Bharat Bachat</span>
             </div>
-            <div class=\"hidden lg:flex items-center gap-10 text-sm font-medium\">
-                <a href=\"#opportunity\" class=\"nav-link\">Opportunity</a>
-                <a href=\"#calculators\" class=\"nav-link\">Calculators</a>
-                <a href=\"#features\" class=\"nav-link\">Features</a>
-                <a href=\"#roadmap\" class=\"nav-link\">Roadmap</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#opportunity" class="nav-link text-sm font-medium">Opportunity</a>
+                <a href="#calculators" class="nav-link text-sm font-medium">Calculators</a>
+                <a href="#features" class="nav-link text-sm font-medium">Features</a>
+                <a href="#roadmap" class="nav-link text-sm font-medium">Roadmap</a>
             </div>
-            <button class=\"bg-white text-slate-950 px-6 py-2.5 rounded-full font-bold hover:bg-saffron hover:text-white transition-all transform hover:scale-105 active:scale-95\">Join Waitlist</button>
+            <a href="https://forms.gle/your-form-link" class="bg-saffron hover:bg-orange-400 text-navy font-bold py-2 px-6 rounded-full transition-all transform hover:scale-105">Join Waitlist</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class=\"relative pt-48 pb-32 px-6 overflow-hidden min-h-screen flex flex-col justify-center\">
-        <div class=\"hero-glow\"></div>
-        <div class=\"max-w-7xl mx-auto text-center\">
-            <div class=\"inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-saffron text-xs font-bold uppercase tracking-widest mb-10\">
-                <span class=\"w-2 h-2 rounded-full bg-saffron\" style=\"background-color: #FF9933;\"></span>
-                India's First UPI Micro-Savings Platform
+    <section class="relative pt-32 pb-20 px-6 overflow-hidden min-h-screen flex items-center">
+        <div class="hero-glow top-0 -left-20"></div>
+        <div class="hero-glow bottom-0 -right-20"></div>
+        
+        <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <span class="inline-block px-4 py-1 rounded-full bg-saffron/10 text-saffron text-sm font-semibold mb-6 border border-saffron/20">India's First UPI Micro-Savings Platform</span>
+                <h1 class="text-5xl md:text-7xl font-bold font-heading leading-tight mb-6">
+                    Every UPI Payment <br>
+                    <span class="gradient-text">Builds Your Wealth</span>
+                </h1>
+                <p class="text-gray-400 text-lg mb-8 max-w-lg leading-relaxed">
+                    Turn your daily expenses into future wealth. Automatically save spare change, optimize GST, and invest in high-yield assets with every scan.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                    <button class="bg-saffron text-navy font-bold py-4 px-8 rounded-2xl hover:bg-orange-400 transition-all shadow-xl shadow-saffron/20">Start Saving Now</button>
+                    <button class="glass-card py-4 px-8 font-bold hover:bg-white/10 transition-all border-white/10">Try Calculators</button>
+                </div>
             </div>
-            <h1 class=\"text-5xl lg:text-7xl font-black leading-tight mb-10 tracking-tight text-white\">
-                Every UPI Payment <br>
-                <span class=\"gradient-text\">Builds Your Wealth</span>
-            </h1>
-            <p class=\"max-w-2xl mx-auto text-lg lg:text-xl text-slate-400 mb-14 leading-relaxed\">
-                Turn your daily expenses into future wealth. Automatically save spare change, optimize GST, and invest in high-yield assets with every scan.
-            </p>
-            <div class=\"flex flex-col sm:flex-row items-center justify-center gap-6\">
-                <button class=\"w-full sm:w-auto px-12 py-5 bg-white text-slate-950 rounded-2xl font-black text-lg hover:bg-saffron hover:text-white transition-all transform hover:-translate-y-1\" style=\"background-color: white;\">Start Saving Now</button>
-                <a href=\"#calculators\" class=\"w-full sm:w-auto px-12 py-5 glass border-white/10 text-white rounded-2xl font-black text-lg hover:bg-white/10 transition-all text-center\" style=\"text-decoration: none;\">Try Calculators</a>
+            
+            <div class="relative" data-aos="zoom-in">
+                <div class="absolute inset-0 bg-gradient-to-r from-saffron/20 to-green/20 blur-3xl rounded-full"></div>
+                <div class="glass-card p-4 relative border-white/5">
+                    <img src="https://images.unsplash.com/photo-1616077168079-7e09a677fb2c?auto=format&fit=crop&q=80&w=800" alt="App Dashboard" class="rounded-xl shadow-2xl">
+                    <!-- Floating Stats -->
+                    <div class="absolute -top-6 -right-6 glass-card p-4 animate-bounce duration-[3000ms]">
+                        <div class="text-xs text-gray-400">Total Saved</div>
+                        <div class="text-xl font-bold text-green">₹14,582.00</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Trust Ticker -->
-    <div class=\"ticker-wrap\">
-        <div class=\"ticker\">
-            <div class=\"px-12 flex items-center gap-4 text-slate-400 font-bold opacity-70 grayscale\"><i class=\"fas fa-award\"></i> DPIIT RECOGNIZED</div>
-            <div class=\"px-12 flex items-center gap-4 text-slate-400 font-bold opacity-70 grayscale\"><i class=\"fas fa-university\"></i> IIIT-B INCUBATED</div>
-            <div class=\"px-12 flex items-center gap-4 text-slate-400 font-bold opacity-70 grayscale\"><i class=\"fas fa-microchip\"></i> MeitY TIDE 2.0</div>
-            <div class=\"px-12 flex items-center gap-4 text-slate-400 font-bold opacity-70 grayscale\"><i class=\"fas fa-qrcode\"></i> NPCI INTEGRATED</div>
-            <div class=\"px-12 flex items-center gap-4 text-slate-400 font-bold opacity-70 grayscale\"><i class=\"fas fa-hand-holding-heart\"></i> SISFS SUPPORTED</div>
-            <div class=\"px-12 flex items-center gap-4 text-slate-400 font-bold opacity-70 grayscale\"><i class=\"fas fa-rocket\"></i> RBIH BOOTCAMP</div>
-            <!-- Duplicates -->
-            <div class=\"px-12 flex items-center gap-4 text-slate-400 font-bold opacity-70 grayscale\"><i class=\"fas fa-award\"></i> DPIIT RECOGNIZED</div>
-            <div class=\"px-12 flex items-center gap-4 text-slate-400 font-bold opacity-70 grayscale\"><i class=\"fas fa-university\"></i> IIIT-B INCUBATED</div>
+    <!-- Trusted By -->
+    <section class="py-20 bg-navy/20">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-gray-500 font-medium mb-12 uppercase tracking-widest text-xs">Empowered by India's Premier Institutions</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 opacity-60">
+                <div class="flex flex-col items-center"><i class="fas fa-building text-3xl mb-2"></i><span class="text-[10px]">DPIIT RECOGNIZED</span></div>
+                <div class="flex flex-col items-center"><i class="fas fa-university text-3xl mb-2"></i><span class="text-[10px]">IIIT-B INCUBATED</span></div>
+                <div class="flex flex-col items-center"><i class="fas fa-microchip text-3xl mb-2"></i><span class="text-[10px]">MeitY TIDE 2.0</span></div>
+                <div class="flex flex-col items-center"><i class="fas fa-shield-halved text-3xl mb-2"></i><span class="text-[10px]">NPCI INTEGRATED</span></div>
+                <div class="flex flex-col items-center"><i class="fas fa-hand-holding-dollar text-3xl mb-2"></i><span class="text-[10px]">SISFS SUPPORTED</span></div>
+                <div class="flex flex-col items-center"><i class="fas fa-landmark text-3xl mb-2"></i><span class="text-[10px]">RBIH BOOTCAMP</span></div>
+            </div>
         </div>
-    </div>
+    </section>
 
-    <!-- Savings Calculators -->
-    <section id=\"calculators\" class=\"py-32 px-6\" style=\"background-color: rgba(15, 23, 42, 0.3);\">
-        <div class=\"max-w-7xl mx-auto\">
-            <div class=\"text-center mb-20\">
-                <h2 class=\"text-5xl lg:text-6xl font-black mb-8 text-white\">Smart <span style=\"color: #FF9933;\">Bachat Tools.</span></h2>
-                <p class=\"text-slate-400 max-w-2xl mx-auto text-lg\">Calculate your potential wealth building across three core bachat pillars.</p>
+    <!-- Smart Savings Calculators Section -->
+    <section id="calculators" class="py-24 px-6 relative bg-navy/30">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-bold font-heading mb-4">Smart Savings <span class="text-saffron">Calculators</span></h2>
+                <p class="text-gray-400">Calculate your potential wealth building across three core bachat pillars.</p>
             </div>
 
-            <div class=\"flex flex-wrap justify-center gap-6 mb-16\">
-                <div class=\"calc-tab active\" data-target=\"upi-calc\">UPI Round-Up</div>
-                <div class=\"calc-tab\" data-target=\"gst-calc\">GST Found Money</div>
-                <div class=\"calc-tab\" data-target=\"impulse-calc\">Impulse Spending</div>
+            <div class="glass-card p-1 mb-8 flex flex-wrap" data-aos="fade-up">
+                <button onclick="showCalc('upi')" id="btn-upi" class="calculator-tab flex-1 py-4 px-6 rounded-2xl font-bold transition-all active">UPI Round-Up</button>
+                <button onclick="showCalc('gst')" id="btn-gst" class="calculator-tab flex-1 py-4 px-6 rounded-2xl font-bold transition-all">GST Found Money</button>
+                <button onclick="showCalc('impulse')" id="btn-impulse" class="calculator-tab flex-1 py-4 px-6 rounded-2xl font-bold transition-all">Impulse Spending</button>
             </div>
 
-            <!-- UPI Round-Up -->
-            <div id=\"upi-calc\" class=\"calc-container active\">
-                <div class=\"grid lg:grid-cols-2 gap-12\" style=\"display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;\">
-                    <div class=\"calc-card\">
-                        <h3 class=\"text-2xl font-bold mb-10 flex items-center gap-3\" style=\"color: #FF9933;\"><i class=\"fas fa-mobile-alt\"></i> Daily UPI Scan Habits</h3>
-                        <div class=\"space-y-12\">
-                            <div style=\"margin-bottom: 3rem;\">
-                                <label class=\"block text-slate-400 font-bold mb-6\">Transactions Per Day</label>
-                                <div class=\"flex justify-between items-center mb-4\">
-                                    <span class=\"text-xs text-slate-500 font-bold uppercase tracking-widest\">Minimal</span>
-                                    <span class=\"text-3xl font-black text-white px-4 py-2 bg-white/5 rounded-xl border border-white/10\" id=\"upi-freq-val\">8</span>
-                                    <span class=\"text-xs text-slate-500 font-bold uppercase tracking-widest\">Power</span>
-                                </div>
-                                <input type=\"range\" id=\"upi-freq-range\" min=\"2\" max=\"20\" step=\"1\" value=\"8\" style=\"width: 100%;\">
-                            </div>
-                            <div>
-                                <label class=\"block text-slate-400 font-bold mb-6\">Save Per Transaction</label>
-                                <div style=\"display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;\">
-                                    <button class=\"upi-save-btn py-4 rounded-2xl border border-white/10 bg-white/5 font-bold\" data-val=\"10\">₹10</button>
-                                    <button class=\"upi-save-btn py-4 rounded-2xl border border-white/10 bg-white/5 font-bold active\" data-val=\"20\">₹20</button>
-                                    <button class=\"upi-save-btn py-4 rounded-2xl border border-white/10 bg-white/5 font-bold\" data-val=\"50\">₹50</button>
-                                </div>
+            <!-- UPI Calculator -->
+            <div id="calc-upi" class="calculator-pane glass-card p-8 md:p-12">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="space-y-8">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-4">UPI Transactions Per Day</label>
+                            <input type="range" id="upi-freq" min="1" max="20" value="8" class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex justify-between mt-2 text-saffron font-bold"><span id="upi-freq-val">8</span><span>Trans/Day</span></div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-4">Average Round-Up (₹)</label>
+                            <div class="flex space-x-4">
+                                <button onclick="setUpiVal(5)" class="flex-1 py-2 glass-card hover:bg-saffron hover:text-navy font-bold">₹5</button>
+                                <button onclick="setUpiVal(10)" class="flex-1 py-2 glass-card hover:bg-saffron hover:text-navy font-bold">₹10</button>
+                                <button onclick="setUpiVal(15)" class="flex-1 py-2 glass-card hover:bg-saffron hover:text-navy font-bold">₹15</button>
                             </div>
                         </div>
                     </div>
-                    <div class=\"calc-card\" style=\"border-color: rgba(34, 197, 94, 0.2); background-color: rgba(34, 197, 94, 0.05);\">
-                        <h3 class=\"text-xl font-bold mb-8 uppercase tracking-widest\" style=\"color: #4ade80;\">10 Year Wealth Projection</h3>
-                        <div class=\"text-6xl font-black text-white mb-4 tracking-tighter\">₹<span id=\"upi-10yr-total\">4,30,000</span></div>
-                        <p class=\"text-slate-400 text-base mb-10 leading-relaxed\">Built from small round-ups of <span class=\"text-white font-bold\">₹2,080/month</span> without changing your lifestyle.</p>
-                        <div class=\"overflow-hidden rounded-2xl border border-white/5 bg-slate-950/50\">
-                            <table class=\"results-table text-sm\">
-                                <thead>
-                                    <tr style=\"background-color: rgba(255, 255, 255, 0.05);\"><th>Duration</th><th>FD (7.5%)</th><th>Bharat Bachat (10%)</th></tr>
-                                </thead>
-                                <tbody>
-                                    <tr><td class=\"text-slate-400 font-bold\">3 Years</td><td id=\"upi-fd-3\">₹82K</td><td id=\"upi-bb-3\" class=\"text-white font-bold\">₹87K</td></tr>
-                                    <tr><td class=\"text-slate-400 font-bold\">5 Years</td><td id=\"upi-fd-5\">₹1.5L</td><td id=\"upi-bb-5\" class=\"text-white font-bold\">₹1.6L</td></tr>
-                                    <tr style=\"background-color: rgba(34, 197, 94, 0.2);\"><td class=\"text-green-400 font-black\">10 Years</td><td id=\"upi-fd-10\">₹3.7L</td><td id=\"upi-bb-10\" class=\"text-green-400 font-black\">₹4.3L</td></tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <div class="bg-saffron/10 rounded-3xl p-8 border border-saffron/20 flex flex-col justify-center items-center text-center">
+                        <div class="text-gray-400 text-sm mb-2 uppercase tracking-widest">Est. Monthly Savings</div>
+                        <div class="text-5xl font-bold text-saffron mb-4">₹<span id="upi-total">1200</span></div>
+                        <p class="text-xs text-gray-500">Based on ₹5 avg round-up per scan.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- GST & Impulse placeholders -->
-            <div id=\"gst-calc\" class=\"calc-container\">
-                <div class=\"calc-card text-center py-20\"><h3 class=\"text-2xl font-bold text-white\">GST Found Money Tool Coming Soon</h3></div>
+            <!-- GST Calculator -->
+            <div id="calc-gst" class="calculator-pane glass-card p-8 md:p-12 hidden">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="space-y-8">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-4">Monthly Household Expense (₹)</label>
+                            <input type="range" id="gst-expense" min="5000" max="100000" step="5000" value="30000" class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex justify-between mt-2 text-saffron font-bold"><span>₹<span id="gst-exp-val">30,000</span></span></div>
+                        </div>
+                    </div>
+                    <div class="bg-green/10 rounded-3xl p-8 border border-green/20 flex flex-col justify-center items-center text-center">
+                        <div class="text-gray-400 text-sm mb-2 uppercase tracking-widest">GST Reward Potential</div>
+                        <div class="text-5xl font-bold text-green mb-4">₹<span id="gst-total">300</span></div>
+                        <p class="text-xs text-gray-500">Avg 1% GST credit on verified bills.</p>
+                    </div>
+                </div>
             </div>
-            <div id=\"impulse-calc\" class=\"calc-container\">
-                <div class=\"calc-card text-center py-20\"><h3 class=\"text-2xl font-bold text-white\">Impulse Audit Tool Coming Soon</h3></div>
+
+            <!-- Impulse Calculator -->
+            <div id="calc-impulse" class="calculator-pane glass-card p-8 md:p-12 hidden">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="space-y-8">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-400 mb-4">Weekly Unplanned Expenses (₹)</label>
+                            <input type="range" id="impulse-val" min="100" max="5000" step="100" value="1000" class="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex justify-between mt-2 text-saffron font-bold"><span>₹<span id="impulse-exp-val">1,000</span></span></div>
+                        </div>
+                    </div>
+                    <div class="bg-navy/40 rounded-3xl p-8 border border-white/10 flex flex-col justify-center items-center text-center">
+                        <div class="text-gray-400 text-sm mb-2 uppercase tracking-widest">Future Wealth (1 Year)</div>
+                        <div class="text-5xl font-bold text-white mb-4">₹<span id="impulse-total">52,000</span></div>
+                        <p class="text-xs text-gray-500">By pausing & saving impulse spends.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Features -->
-    <section id=\"features\" class=\"py-32 px-6\">
-        <div class=\"max-w-7xl mx-auto\">
-            <div class=\"grid md:grid-cols-2 lg:grid-cols-4 gap-8\">
-                <div class=\"glass p-10\">
-                    <div class=\"w-16 h-16 rounded-3xl flex items-center justify-center text-3xl mb-8\" style=\"background-color: rgba(255, 153, 51, 0.2); color: #FF9933;\"><i class=\"fas fa-receipt\"></i></div>
-                    <h3 class=\"text-2xl font-bold mb-6 text-white\">GST Nudge</h3>
-                    <p class=\"text-slate-400\">Extracts GST details from merchant IDs and prompts reinvestment of tax benefits.</p>
+    <section id="features" class="py-24 px-6 max-w-7xl mx-auto">
+        <div class="text-center mb-20" data-aos="fade-up">
+            <h2 class="text-4xl md:text-5xl font-bold font-heading mb-4">Why Bharat Bachat?</h2>
+            <p class="text-gray-400">Micro-fintech designed for the 1.4 billion aspirations.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="glass-card p-8" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-14 h-14 bg-saffron/20 rounded-2xl flex items-center justify-center text-saffron text-2xl mb-6">
+                    <i class="fas fa-coins"></i>
                 </div>
-                <div class=\"glass p-10\">
-                    <div class=\"w-16 h-16 rounded-3xl flex items-center justify-center text-3xl mb-8\" style=\"background-color: rgba(59, 130, 246, 0.2); color: #3b82f6;\"><i class=\"fas fa-mirror\"></i></div>
-                    <h3 class=\"text-2xl font-bold mb-6 text-white\">Experience Mirror</h3>
-                    <p class=\"text-slate-400\">Spent ₹2,000 on dinner? Match it with a small investment for your future self.</p>
+                <h3 class="text-xl font-bold mb-4">Scan-to-Save</h3>
+                <p class="text-gray-400 leading-relaxed">Every UPI scan rounds up to the nearest ₹10 or ₹50. Micro-savings that feel like zero effort.</p>
+            </div>
+            <div class="glass-card p-8" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-14 h-14 bg-green/20 rounded-2xl flex items-center justify-center text-green text-2xl mb-6">
+                    <i class="fas fa-file-invoice-dollar"></i>
                 </div>
-                <div class=\"glass p-10\">
-                    <div class=\"w-16 h-16 rounded-3xl flex items-center justify-center text-3xl mb-8\" style=\"background-color: rgba(34, 197, 94, 0.2); color: #22c55e;\"><i class=\"fas fa-repeat\"></i></div>
-                    <h3 class=\"text-2xl font-bold mb-6 text-white\">Habit Nudge</h3>
-                    <p class=\"text-slate-400\">Identifies daily tea/coffee patterns and automates micro-savings for every cup.</p>
+                <h3 class="text-xl font-bold mb-4">GST Credit Engine</h3>
+                <p class="text-gray-400 leading-relaxed">Upload bills, get GST rewards, and invest them instantly into Digital Gold or Silver.</p>
+            </div>
+            <div class="glass-card p-8" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-14 h-14 bg-navy/40 rounded-2xl flex items-center justify-center text-white text-2xl mb-6">
+                    <i class="fas fa-brain"></i>
                 </div>
-                <div class=\"glass p-10\">
-                    <div class=\"w-16 h-16 rounded-3xl flex items-center justify-center text-3xl mb-8\" style=\"background-color: rgba(239, 68, 68, 0.2); color: #ef4444;\"><i class=\"fas fa-ban\"></i></div>
-                    <h3 class=\"text-2xl font-bold mb-6 text-white\">Sin Redirect</h3>
-                    <p class=\"text-slate-400\">Redirect a small penalty from non-essential spending into high-yield savings.</p>
-                </div>
+                <h3 class="text-xl font-bold mb-4">AI Nudges</h3>
+                <p class="text-gray-400 leading-relaxed">Identify impulse spending patterns and get real-time nudges to save instead of spend.</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class=\"py-32 px-6 border-t border-white/5\">
-        <div class=\"max-w-7xl mx-auto text-center\">
-            <div class=\"flex items-center justify-center gap-4 mb-10\">
-                <div class=\"w-12 h-12 bg-gradient-to-br from-saffron to-green rounded-2xl flex items-center justify-center font-bold text-white text-2xl shadow-xl\">BB</div>
-                <span class=\"text-2xl font-black tracking-tight text-white\">Bharat Bachat</span>
+    <footer class="py-12 px-6 border-t border-white/5 bg-black/40">
+        <div class="max-w-7xl mx-auto flex flex-col md:row justify-between items-center text-center md:text-left space-y-8 md:space-y-0">
+            <div>
+                <div class="flex items-center space-x-2 mb-4 justify-center md:justify-start">
+                    <div class="w-8 h-8 bg-saffron rounded-lg flex items-center justify-center font-bold text-navy text-xs">BB</div>
+                    <span class="text-lg font-bold font-heading">Bharat Bachat</span>
+                </div>
+                <p class="text-gray-500 text-sm max-w-xs">An initiative by Desi Pe Finance Private Limited. <br> Bengaluru, India.</p>
             </div>
-            <p class=\"text-slate-500 font-bold uppercase tracking-[0.2em] text-xs mb-4\">Desi Pe Finance Private Limited</p>
-            <p class=\"text-slate-600 text-sm italic\">DPIIT Registered Startup | Incubated at IIITB Innovation Centre</p>
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-400 hover:text-saffron transition-colors"><i class="fab fa-linkedin-in text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-saffron transition-colors"><i class="fab fa-twitter text-xl"></i></a>
+                <a href="#" class="text-gray-400 hover:text-saffron transition-colors"><i class="fab fa-instagram text-xl"></i></a>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/5 text-center text-xs text-gray-600">
+            &copy; 2024 Bharat Bachat. All rights reserved. Fintech grade security.
         </div>
     </footer>
 
     <script>
-        // Tab Management
-        document.querySelectorAll('.calc-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                document.querySelectorAll('.calc-tab').forEach(t => {
-                    t.style.backgroundColor = 'rgba(255,255,255,0.02)';
-                    t.style.color = 'white';
-                });
-                document.querySelectorAll('.calc-container').forEach(c => c.style.display = 'none');
-                tab.style.backgroundColor = '#FF9933';
-                tab.style.color = '#020617';
-                document.getElementById(tab.dataset.target).style.display = 'block';
-            });
-        });
+        // AOS Init
+        AOS.init({ duration: 1000, once: true });
 
-        // UPI Logic
-        let saveAmount = 20;
-        const freqRange = document.getElementById('upi-freq-range');
-        const freqDisp = document.getElementById('upi-freq-val');
-        const totalDisp = document.getElementById('upi-10yr-total');
-
-        function sipFV(m, r, y) {
-            const i = r / 12;
-            const n = y * 12;
-            if (i === 0) return m * n;
-            return Math.round(m * (Math.pow(1 + i, n) - 1) / i * (1 + i));
+        // Calculator Logic
+        function showCalc(type) {
+            document.querySelectorAll('.calculator-pane').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.calculator-tab').forEach(el => el.classList.remove('active'));
+            document.getElementById('calc-' + type).classList.remove('hidden');
+            document.getElementById('btn-' + type).classList.add('active');
         }
 
-        function update() {
-            const freq = parseInt(freqRange.value);
-            const monthly = freq * saveAmount * 26;
-            totalDisp.textContent = (sipFV(monthly, 0.10, 10)).toLocaleString('en-IN');
-            
-            const fd3 = sipFV(monthly, 0.075, 3);
-            const bb3 = sipFV(monthly, 0.10, 3);
-            document.getElementById('upi-fd-3').textContent = '₹' + Math.round(fd3/1000) + 'K';
-            document.getElementById('upi-bb-3').textContent = '₹' + Math.round(bb3/1000) + 'K';
-            
-            const fd5 = sipFV(monthly, 0.075, 5);
-            const bb5 = sipFV(monthly, 0.10, 5);
-            document.getElementById('upi-fd-5').textContent = '₹' + (fd5/100000).toFixed(1) + 'L';
-            document.getElementById('upi-bb-5').textContent = '₹' + (bb5/100000).toFixed(1) + 'L';
-            
-            const fd10 = sipFV(monthly, 0.075, 10);
-            const bb10 = sipFV(monthly, 0.10, 10);
-            document.getElementById('upi-fd-10').textContent = '₹' + (fd10/100000).toFixed(1) + 'L';
-            document.getElementById('upi-bb-10').textContent = '₹' + (bb10/100000).toFixed(1) + 'L';
+        const upiFreq = document.getElementById('upi-freq');
+        const upiFreqVal = document.getElementById('upi-freq-val');
+        const upiTotal = document.getElementById('upi-total');
+        let currentUpiAvg = 5;
+
+        function setUpiVal(val) {
+            currentUpiAvg = val;
+            updateUpi();
         }
 
-        freqRange.addEventListener('input', () => {
-            freqDisp.textContent = freqRange.value;
-            update();
-        });
+        function updateUpi() {
+            const freq = upiFreq.value;
+            upiFreqVal.innerText = freq;
+            upiTotal.innerText = freq * currentUpiAvg * 30;
+        }
 
-        document.querySelectorAll('.upi-save-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.upi-save-btn').forEach(b => {
-                    b.style.backgroundColor = 'rgba(255,255,255,0.05)';
-                    b.style.color = 'white';
-                });
-                btn.style.backgroundColor = '#FF9933';
-                btn.style.color = '#020617';
-                saveAmount = parseInt(btn.dataset.val);
-                update();
-            });
-        });
+        upiFreq.oninput = updateUpi;
 
-        update();
+        const gstExp = document.getElementById('gst-expense');
+        const gstExpVal = document.getElementById('gst-exp-val');
+        const gstTotal = document.getElementById('gst-total');
+
+        gstExp.oninput = function() {
+            gstExpVal.innerText = parseInt(this.value).toLocaleString('en-IN');
+            gstTotal.innerText = (this.value * 0.01).toLocaleString('en-IN');
+        }
+
+        const impulseVal = document.getElementById('impulse-val');
+        const impulseExpVal = document.getElementById('impulse-exp-val');
+        const impulseTotal = document.getElementById('impulse-total');
+
+        impulseVal.oninput = function() {
+            impulseExpVal.innerText = parseInt(this.value).toLocaleString('en-IN');
+            impulseTotal.innerText = (this.value * 52).toLocaleString('en-IN');
+        }
     </script>
 </body>
 </html>
