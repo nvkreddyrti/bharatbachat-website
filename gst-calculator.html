@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Found Money Calculator - Bharat Bachat</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FF9933 0%, #1e3a8a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .calculator-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            color: #1e3a8a;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        .input-group label {
+            display: block;
+            color: #1e3a8a;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: #FF9933;
+            box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.1);
+        }
+
+        .category-selector {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .category-btn {
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            text-align: center;
+            font-weight: 600;
+            color: #666;
+        }
+
+        .category-btn:hover {
+            background: rgba(255, 153, 51, 0.1);
+            border-color: #FF9933;
+        }
+
+        .category-btn.active {
+            background: #FF9933;
+            border-color: #FF9933;
+            color: white;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #FF9933 0%, #e68a00 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 153, 51, 0.3);
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 153, 51, 0.4);
+        }
+
+        .results {
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 153, 51, 0.1) 0%, rgba(30, 58, 138, 0.1) 100%);
+            border-radius: 16px;
+            display: none;
+        }
+
+        .results.show {
+            display: block;
+            animation: slideUp 0.5s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+
+        .result-value {
+            color: #FF9933;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .breakdown-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            border-left: 4px solid #FF9933;
+        }
+
+        .breakdown-box h3 {
+            color: #1e3a8a;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .breakdown-item .value {
+            color: #FF9933;
+            font-weight: 600;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #1e3a8a;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: #2d4a9f;
+            transform: translateX(-5px);
+        }
+
+        @media (max-width: 768px) {
+            .calculator-container {
+                padding: 24px;
+            }
+
+            .category-selector {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <div class="header">
+            <h1>💰 GST Found Money Calculator</h1>
+            <p>Discover hidden wealth from GST rate reductions</p>
+        </div>
+
+        <div class="input-group">
+            <label for="monthlyExpense">Monthly Shopping Expense (₹)</label>
+            <input type="number" id="monthlyExpense" placeholder="e.g., 15000" min="0">
+        </div>
+
+        <div class="input-group">
+            <label>Shopping Categories (Select all that apply)</label>
+            <div class="category-selector">
+                <button class="category-btn" data-category="clothing" data-savings="7" onclick="toggleCategory(this)">
+                    👕 Clothing (7%)
+                </button>
+                <button class="category-btn" data-category="footwear" data-savings="7" onclick="toggleCategory(this)">
+                    👟 Footwear (7%)
+                </button>
+                <button class="category-btn" data-category="restaurants" data-savings="10" onclick="toggleCategory(this)">
+                    🍽️ Restaurants (10%)
+                </button>
+                <button class="category-btn" data-category="electronics" data-savings="5" onclick="toggleCategory(this)">
+                    📱 Electronics (5%)
+                </button>
+                <button class="category-btn" data-category="cosmetics" data-savings="7" onclick="toggleCategory(this)">
+                    💄 Cosmetics (7%)
+                </button>
+                <button class="category-btn" data-category="furniture" data-savings="10" onclick="toggleCategory(this)">
+                    🛋️ Furniture (10%)
+                </button>
+            </div>
+        </div>
+
+        <button class="calculate-btn" onclick="calculateGST()">Calculate GST Savings</button>
+
+        <div class="results" id="results">
+            <div class="result-item">
+                <span class="result-label">Annual GST Savings</span>
+                <span class="result-value" id="annualSavings">₹0</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">5-Year Wealth (If Invested @ 10% p.a.)</span>
+                <span class="result-value" id="fiveYearWealth">₹0</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Your Savings Rate</span>
+                <span class="result-value" id="savingsRate">0%</span>
+            </div>
+
+            <div class="breakdown-box">
+                <h3>💡 Your GST Savings Breakdown</h3>
+                <div id="breakdownContainer"></div>
+            </div>
+        </div>
+
+        <a href="index.html" class="back-btn">← Back to Home</a>
+    </div>
+
+    <script>
+        let selectedCategories = [];
+
+        function toggleCategory(button) {
+            const category = button.dataset.category;
+            const savings = parseFloat(button.dataset.savings);
+
+            if (button.classList.contains('active')) {
+                button.classList.remove('active');
+                selectedCategories = selectedCategories.filter(c => c.category !== category);
+            } else {
+                button.classList.add('active');
+                selectedCategories.push({
+                    category: category,
+                    name: button.textContent.trim(),
+                    savings: savings
+                });
+            }
+        }
+
+        function calculateGST() {
+            const monthlyExpense = parseFloat(document.getElementById('monthlyExpense').value) || 0;
+
+            if (monthlyExpense === 0 || selectedCategories.length === 0) {
+                alert('Please enter your monthly expense and select at least one category!');
+                return;
+            }
+
+            // Calculate average savings rate across selected categories
+            const avgSavingsRate = selectedCategories.reduce((sum, cat) => sum + cat.savings, 0) / selectedCategories.length;
+            
+            // Assume expense is distributed equally across selected categories
+            const expensePerCategory = monthlyExpense / selectedCategories.length;
+            
+            // Calculate total monthly and annual savings
+            let totalMonthlySavings = 0;
+            const breakdown = [];
+
+            selectedCategories.forEach(cat => {
+                const categorySavings = (expensePerCategory * cat.savings) / 100;
+                totalMonthlySavings += categorySavings;
+                breakdown.push({
+                    name: cat.name,
+                    savings: categorySavings,
+                    rate: cat.savings
+                });
+            });
+
+            const annualSavings = totalMonthlySavings * 12;
+            
+            // Future value calculation: FV = PMT * [((1 + r)^n - 1) / r]
+            const monthlyRate = 0.10 / 12; // 10% annual
+            const months = 5 * 12; // 5 years
+            const fiveYearWealth = totalMonthlySavings * (((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate));
+
+            // Display results
+            document.getElementById('annualSavings').textContent = `₹${Math.round(annualSavings).toLocaleString('en-IN')}`;
+            document.getElementById('fiveYearWealth').textContent = `₹${Math.round(fiveYearWealth).toLocaleString('en-IN')}`;
+            document.getElementById('savingsRate').textContent = `${avgSavingsRate.toFixed(1)}%`;
+
+            // Generate breakdown
+            generateBreakdown(breakdown);
+
+            // Show results
+            document.getElementById('results').classList.add('show');
+        }
+
+        function generateBreakdown(breakdown) {
+            const container = document.getElementById('breakdownContainer');
+            container.innerHTML = '';
+
+            breakdown.forEach(item => {
+                const breakdownDiv = document.createElement('div');
+                breakdownDiv.className = 'breakdown-item';
+                breakdownDiv.innerHTML = `
+                    <span>${item.name}</span>
+                    <span class="value">₹${Math.round(item.savings * 12).toLocaleString('en-IN')}/year</span>
+                `;
+                container.appendChild(breakdownDiv);
+            });
+
+            // Add total
+            const totalDiv = document.createElement('div');
+            totalDiv.className = 'breakdown-item';
+            totalDiv.style.borderTop = '2px solid #FF9933';
+            totalDiv.style.paddingTop = '12px';
+            totalDiv.style.marginTop = '8px';
+            totalDiv.style.fontWeight = 'bold';
+            const totalSavings = breakdown.reduce((sum, item) => sum + item.savings, 0) * 12;
+            totalDiv.innerHTML = `
+                <span>Total Annual GST Savings</span>
+                <span class="value">₹${Math.round(totalSavings).toLocaleString('en-IN')}</span>
+            `;
+            container.appendChild(totalDiv);
+        }
+    </script>
+</body>
+</html>
